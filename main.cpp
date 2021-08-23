@@ -18,8 +18,11 @@ using namespace std;
 
 #include "CLI11.hpp"
 
-#define SAVE_FILE 1
-
+/**
+ * @brief Detect straight line segment using FBSD detector
+ * @param grayImg : input image
+ * @return vector of pair of points
+ */
 std::vector<std::pair<Pt2i, Pt2i> >
 FBSDDetector(const Mat& grayImg) {
   // Copy image
@@ -69,21 +72,43 @@ FBSDDetector(const Mat& grayImg) {
   return seg;
 }
 
+/**
+ * @brief Verify wherether a segment is horizontal
+ * @param p1, p2 : input points
+ * @param tol : tolerance angle
+ * @return bool
+ */
 bool
-isVerticalSegment(Pt2i p1, Pt2i p2, int tol = 4) {
-  int b = abs(p2.x() - p1.x());
-  return b < tol;
+isHorizontalSegment(Pt2i p1, Pt2i p2, double tol = 10) {
+  double a = fabs(p1.y() - p2.y());
+  double b = fabs(p1.x() - p2.x());
+  return tan(a/b) < tol*M_PI/360.0;
 }
 
+/**
+ * @brief Verify wherether a segment is vertical
+ * @param p1, p2 : input points
+ * @param tol : tolerance angle
+ * @return bool
+ */
 bool
-isHorizontalSegment(Pt2i p1, Pt2i p2, int tol = 4) {
-  int a = abs(p1.y() - p2.y());
-  return a < tol;
+isVerticalSegment(Pt2i p1, Pt2i p2, double tol = 10) {
+  double a = fabs(p1.y() - p2.y());
+  double b = fabs(p1.x() - p2.x());
+  return tan(b/a) < tol*M_PI/360.0;
 }
 
+/**
+ * @brief Recovery horizontal  segments
+ * @param segH : vecgtor of horizontal  segment
+ * @param tolAlign : tolerance angle
+ * @param tolDistGr : tolerance distance for regrouping
+ * @param tolLen : tolerance of segment length
+ * @return bool
+ */
 std::vector<std::pair<Pt2i, Pt2i> >
 HorizontalSegRecovery(const std::vector<std::pair<Pt2i, Pt2i> >& segH,
-                      int tolAlign = 3,
+                      double tolAlign = 5,
                       int tolDistGr = 30,
                       int tolLen = 20) {
   // Sort horizontal segments
@@ -109,7 +134,7 @@ HorizontalSegRecovery(const std::vector<std::pair<Pt2i, Pt2i> >& segH,
     lp2 = segHs.at(it2).first;
     rp2 = segHs.at(it2).second;
     idSeg.push_back(it1);
-    while (it2 < segHs.size()-1 && abs(lp1.y() - lp2.y()) < tolAlign) {
+    while (it2 < segHs.size()-1 && isHorizontalSegment(lp1, lp2, tolAlign) /* abs(lp1.y() - lp2.y()) < tolAlign */ ) {
       if(lp3.x()>lp2.x())
         lp3 = lp2;
       if(rp3.x()<rp2.x())
@@ -143,7 +168,7 @@ HorizontalSegRecovery(const std::vector<std::pair<Pt2i, Pt2i> >& segH,
     }
     std::sort(std::begin(segEx), std::end(segEx),
               [](std::pair<Pt2i, Pt2i> s1, std::pair<Pt2i, Pt2i> s2) {return s1.first.x() < s2.first.x(); });
-    // Regroup near horizontal segments
+    // Regroupe near horizontal segments
     int it1=0, it2=0;
     Pt2i lp1, rp1, lp2, rp2, lp3, rp3;
     int l = 0;
@@ -189,14 +214,21 @@ HorizontalSegRecovery(const std::vector<std::pair<Pt2i, Pt2i> >& segH,
   return segHsEg;
 }
 
+/**
+ * @brief Recovery vertical  segments
+ * @param segH : vecgtor of vertical  segment
+ * @param tolAlign : tolerance angle
+ * @param tolDistGr : tolerance distance for regrouping
+ * @param tolLen : tolerance of segment length
+ * @return bool
+ */
 std::vector<std::pair<Pt2i, Pt2i> >
 VerticalSegRecovery(const std::vector<std::pair<Pt2i, Pt2i> >& segV,
-                    int tolAlign = 3,
+                    double tolAlign = 5,
                     int tolDistGr = 30,
                     int tolLen = 20) {
   // Sort vertial segments
   std::vector<std::pair<Pt2i, Pt2i> > segVs = segV;
-  
   std::sort(std::begin(segVs), std::end(segVs),
             [](std::pair<Pt2i, Pt2i> s1, std::pair<Pt2i, Pt2i> s2) //{return s1.first.x() < s2.first.x(); });
             { return s1.first.x() < s2.first.x() || (s1.first.x() == s2.first.x() && s1.first.y() < s2.first.y()); });
@@ -217,7 +249,8 @@ VerticalSegRecovery(const std::vector<std::pair<Pt2i, Pt2i> >& segV,
     lp2 = segVs.at(it2).first;
     rp2 = segVs.at(it2).second;
     idSeg.push_back(it1);
-    while (it2 < segVs.size()-1 && abs(lp1.x() - lp2.x()) < tolAlign) {
+    while (it2 < segVs.size()-1 && isVerticalSegment(lp1, lp2, tolAlign)
+    /*  abs(lp1.x() - lp2.x()) < tolAlign */) {
       if(lp3.y()>lp2.y())
         lp3 = lp2;
       if(rp3.y()<rp2.y())
@@ -250,7 +283,7 @@ VerticalSegRecovery(const std::vector<std::pair<Pt2i, Pt2i> >& segV,
     }
     std::sort(std::begin(segEx), std::end(segEx),
               [](std::pair<Pt2i, Pt2i> s1, std::pair<Pt2i, Pt2i> s2) {return s1.first.y() < s2.first.y(); });
-    // Regroup near vertical segments
+    // Regroupe near vertical segments
     int it1=0, it2=0;
     Pt2i lp1, rp1, lp2, rp2, lp3, rp3;
     int l = 0;
@@ -298,7 +331,16 @@ VerticalSegRecovery(const std::vector<std::pair<Pt2i, Pt2i> >& segV,
   return segVsEg;
 }
 
-
+/**
+ * @brief Filter a horizontal text segment by verifying intensity profil along a segment
+ * @param grayImg : input gray image
+ * @param p1, p2 : input segment
+ * @param w : profile segment size
+ * @param ratio : tolerance of intensity profile
+ * @param threshPic : peak intensity at extremity
+ * @param threshVal : tolerance of intensity difference
+ * @return bool
+ */
 bool
 isHoziontalSegTab(const Mat& grayImg,
                   Pt2i p1, Pt2i p2,
@@ -318,7 +360,6 @@ isHoziontalSegTab(const Mat& grayImg,
   //Count density (hight / low intensities) of roi
   int highInt = 0, lowInt = 0;
   uchar color;
-  //std::vector<std::vector<int> > vecIntensity;
   countProfil = 0;
   for (int c = 0; c < width; c++) {
     std::vector<int> intensity;
@@ -326,9 +367,7 @@ isHoziontalSegTab(const Mat& grayImg,
       color = image_roi.at<uchar>(Point(c, l));
       intensity.push_back(int(color));
     }
-    //vecIntensity.push_back(intensity);
     size_t pic1=0, pic2=intensity.size()-1;
-    
     if(intensity[pic1]>threshPic || intensity[pic2]>threshPic) {
       for(size_t l=pic1; l<=pic2; l++) {
         if(abs(intensity[pic1]-intensity.at(l))>threshVal || abs(intensity[pic2]-intensity.at(l))>threshVal) {
@@ -341,6 +380,16 @@ isHoziontalSegTab(const Mat& grayImg,
   return countProfil>ratio*width;
 }
 
+/**
+ * @brief Filter a veritcal text segment by verifying intensity profil along a segment
+ * @param grayImg : input gray image
+ * @param p1, p2 : input segment
+ * @param w : profile segment size
+ * @param ratio : tolerance of intensity profile
+ * @param threshPic : peak intensity at extremity
+ * @param threshVal : tolerance of intensity difference
+ * @return bool
+ */
 bool
 isVerticalSegTab(const Mat& grayImg,
                  Pt2i p1, Pt2i p2,
@@ -380,10 +429,17 @@ isVerticalSegTab(const Mat& grayImg,
   return countProfil>ratio*height;
 }
 
+/**
+ * @brief Retreive cell table from vertical and horizontal segments
+ * @param segH : horizontal segment
+ * @param segV : vertical segment
+ * @param ext : extend the length of segment for intersection verification
+ * @return vector of bounding boxes of table cells
+ */
 vector<pair<Pt2i, Pt2i> >
 getTableCells(const std::vector<std::pair<Pt2i, Pt2i> >& segH,
               const std::vector<std::pair<Pt2i, Pt2i> >& segV,
-              int ext = 3) {
+              int ext = 5) {
   vector<pair<Pt2i, Pt2i> > boxes;
   for(size_t it=0; it<segV.size(); it++) { //for each vertical segment
     std::pair<Pt2i, Pt2i> seg1 = segV.at(it);
@@ -407,12 +463,10 @@ getTableCells(const std::vector<std::pair<Pt2i, Pt2i> >& segH,
           }
           else { //first the nearest segments
             if(abs(pt.y()-seg1.first.y()) < diffFirst) { //to lp1
-              //cout<<"diffFirst="<<diffFirst<<" vs diff="<<abs(pt.y()-seg1.first.y())<<endl;
               idFirst = it_bis;
               diffFirst = abs(pt.y()-seg1.first.y());
             }
             if(abs(pt.y()-seg1.second.y()) < diffLast) { //to rp1
-              //cout<<"diffLast="<<diffFirst<<" vs diff="<<abs(pt.y()-seg1.second.y())<<endl;
               idLast = it_bis;
               diffLast = abs(pt.y()-seg1.second.y());
             }
@@ -433,7 +487,17 @@ getTableCells(const std::vector<std::pair<Pt2i, Pt2i> >& segH,
   return boxes;
 }
 
-vector<pair<Pt2i, Pt2i> > getTables(Size imgSize, vector<pair<Pt2i, Pt2i> > cells, int minSize = 100) {
+/**
+ * @brief Reconstruct table from cells
+ * @param imgSize : input image size
+ * @param cells : table cells
+ * @param minSize : min size of connected component
+ * @return vector of bounding boxes of tables
+ */
+vector<pair<Pt2i, Pt2i> >
+getTables(Size imgSize,
+          vector<pair<Pt2i, Pt2i> > cells,
+          int minSize = 100) {
   Mat cellImage(imgSize,CV_8UC1, Scalar(0));
   for(int it=0; it<cells.size(); it++) {
     Pt2i p1 = cells.at(it).first;
@@ -470,7 +534,7 @@ int main(int argc, char *argv[]) {
   string imgFileName, resFilename{"result.png"};
   int scale = 1;
   int win = 7;
-  int tolAlign = 3;
+  double tolAlign = 5;
   int tolDistGr = 30;
   int tolLen = 20;
   double ratio = 0.75;
@@ -511,13 +575,13 @@ int main(int argc, char *argv[]) {
   for(int it=0; it<seg.size(); it++) {
     Pt2i lp = seg.at(it).first;
     Pt2i rp = seg.at(it).second;
-    if(isHorizontalSegment(lp, rp)) {
+    if(isHorizontalSegment(lp, rp, tolAlign)) {
       if(lp.x()<rp.x()) //lp = left and rp = right
         segH.push_back(std::make_pair(lp, rp));
       else
         segH.push_back(std::make_pair(rp, lp));
     }
-    if(isVerticalSegment(lp, rp)) {
+    if(isVerticalSegment(lp, rp, tolAlign)) {
       if(lp.y()<rp.y()) //lp = down and rp = up
         segV.push_back(std::make_pair(lp, rp));
       else
@@ -564,6 +628,84 @@ int main(int argc, char *argv[]) {
   cv::addWeighted(img, alpha, mask, 1.0 - alpha , 0.0, dst);
   resize(dst, dst, Size(width/scale,height/scale),INTER_LINEAR);
   imwrite(resFilename, dst);
+  
+  
+  //Step 10: Display result
+  Mat imgCopy = grayImg.clone();
+  cvtColor(imgCopy, imgCopy, COLOR_GRAY2BGR);
+  for(int it=0; it<seg.size(); it++) {
+    Pt2i lp = seg.at(it).first;
+    Pt2i rp = seg.at(it).second;
+    line(imgCopy, Point(lp.x(),lp.y()), Point(rp.x(),rp.y()), Scalar(0,255,0));
+  }
+  string outFilename = "res_Seg.png";
+  imwrite(outFilename, imgCopy);
+  
+  imgCopy = grayImg.clone();
+  cvtColor(imgCopy, imgCopy, COLOR_GRAY2BGR);
+  for(int it=0; it<segH.size(); it++) {
+    Pt2i lp = segH.at(it).first;
+    Pt2i rp = segH.at(it).second;
+    line(imgCopy, Point(lp.x(),lp.y()), Point(rp.x(),rp.y()), Scalar(255,0,0));
+  }
+  for(int it=0; it<segV.size(); it++) {
+    Pt2i lp = segV.at(it).first;
+    Pt2i rp = segV.at(it).second;
+    line(imgCopy, Point(lp.x(),lp.y()), Point(rp.x(),rp.y()), Scalar(0,0,255));
+  }
+  outFilename ="res_HV.png";
+  imwrite(outFilename, imgCopy);
+  
+  imgCopy = grayImg.clone();
+  cvtColor(imgCopy, imgCopy, COLOR_GRAY2BGR);
+  for(int it=0; it<segHsEg.size(); it++) {
+    Pt2i lp = segHsEg.at(it).first;
+    Pt2i rp = segHsEg.at(it).second;
+    line(imgCopy, Point(lp.x(),lp.y()), Point(rp.x(),rp.y()), Scalar(255,0,0));
+  }
+  for(int it=0; it<segVsEg.size(); it++) {
+    Pt2i lp = segVsEg.at(it).first;
+    Pt2i rp = segVsEg.at(it).second;
+    line(imgCopy, Point(lp.x(),lp.y()), Point(rp.x(),rp.y()), Scalar(0,0,255));
+  }
+  outFilename = "res_HVEg.png";
+  imwrite(outFilename, imgCopy);
+  
+  imgCopy = grayImg.clone();
+  cvtColor(imgCopy, imgCopy, COLOR_GRAY2BGR);
+  for(int it=0; it<segHsEgT.size(); it++) {
+    Pt2i lp = segHsEgT.at(it).first;
+    Pt2i rp = segHsEgT.at(it).second;
+    line(imgCopy, Point(lp.x(),lp.y()), Point(rp.x(),rp.y()), Scalar(255,0,0));
+  }
+  for(int it=0; it<segVsEgT.size(); it++) {
+    Pt2i lp = segVsEgT.at(it).first;
+    Pt2i rp = segVsEgT.at(it).second;
+    line(imgCopy, Point(lp.x(),lp.y()), Point(rp.x(),rp.y()), Scalar(0,0,255));
+  }
+  outFilename = "res_HVT.png";
+  imwrite(outFilename, imgCopy);
+  
+  imgCopy = grayImg.clone();
+  cvtColor(imgCopy, imgCopy, COLOR_GRAY2BGR);
+  for(int it=0; it<cells.size(); it++) {
+    Pt2i p1 = cells.at(it).first;
+    Pt2i p2 = cells.at(it).second;
+    rectangle(imgCopy, Point(p1.x(), p1.y()), Point(p2.x(), p2.y()), Scalar(0,0,0),-1);
+  }
+  outFilename = "res_HVCell.png";
+  imwrite(outFilename, imgCopy);
+  
+  
+  imgCopy = grayImg.clone();
+  cvtColor(imgCopy, imgCopy, COLOR_GRAY2BGR);
+  for(int it=0; it<tables.size(); it++) {
+    Pt2i p1 = tables.at(it).first;
+    Pt2i p2 = tables.at(it).second;
+    rectangle(imgCopy, Point(p1.x(), p1.y()), Point(p2.x(), p2.y()), Scalar(0,0,0),-1);
+  }
+  outFilename = "res_HVTable.png";
+  imwrite(outFilename, imgCopy);
   
   return EXIT_SUCCESS;
 }
