@@ -1,6 +1,12 @@
 # TableExtraction
 
-This is a tool to extract tables in document images.
+This is a tool to extract tables in document images. The method is composed of 6 steps:
+1. Line segment detection
+2. Horizontal and vertical segment filtering
+3. Line segment recovery
+4. Suppression of segments belonging to text
+5. Table cell extraction
+6. Table reconstruction
 
 # Quick setup 
 
