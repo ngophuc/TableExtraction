@@ -109,8 +109,8 @@ isVerticalSegment(Pt2i p1, Pt2i p2, double tol = 10) {
 std::vector<std::pair<Pt2i, Pt2i> >
 HorizontalSegRecovery(const std::vector<std::pair<Pt2i, Pt2i> >& segH,
                       double tolAlign = 5,
-                      int tolDistGr = 30,
-                      int tolLen = 20) {
+                      int tolDistGr = 20,
+                      int tolLen = 30) {
   // Sort horizontal segments
   std::vector<std::pair<Pt2i, Pt2i> > segHs = segH;
   std::sort(std::begin(segHs), std::end(segHs),
@@ -134,7 +134,7 @@ HorizontalSegRecovery(const std::vector<std::pair<Pt2i, Pt2i> >& segH,
     lp2 = segHs.at(it2).first;
     rp2 = segHs.at(it2).second;
     idSeg.push_back(it1);
-    while (it2 < segHs.size()-1 && isHorizontalSegment(lp1, lp2, tolAlign) /* abs(lp1.y() - lp2.y()) < tolAlign */ ) {
+    while (it2 < segHs.size()-1 && isHorizontalSegment(lp1, rp2, tolAlign/2.0) /* abs(lp1.y() - lp2.y()) < tolAlign */ ) {
       if(lp3.x()>lp2.x())
         lp3 = lp2;
       if(rp3.x()<rp2.x())
@@ -225,8 +225,8 @@ HorizontalSegRecovery(const std::vector<std::pair<Pt2i, Pt2i> >& segH,
 std::vector<std::pair<Pt2i, Pt2i> >
 VerticalSegRecovery(const std::vector<std::pair<Pt2i, Pt2i> >& segV,
                     double tolAlign = 5,
-                    int tolDistGr = 30,
-                    int tolLen = 20) {
+                    int tolDistGr = 20,
+                    int tolLen = 30) {
   // Sort vertial segments
   std::vector<std::pair<Pt2i, Pt2i> > segVs = segV;
   std::sort(std::begin(segVs), std::end(segVs),
@@ -249,7 +249,7 @@ VerticalSegRecovery(const std::vector<std::pair<Pt2i, Pt2i> >& segV,
     lp2 = segVs.at(it2).first;
     rp2 = segVs.at(it2).second;
     idSeg.push_back(it1);
-    while (it2 < segVs.size()-1 && isVerticalSegment(lp1, lp2, tolAlign)
+    while (it2 < segVs.size()-1 && isVerticalSegment(lp1, rp2, tolAlign)
     /*  abs(lp1.x() - lp2.x()) < tolAlign */) {
       if(lp3.y()>lp2.y())
         lp3 = lp2;
@@ -344,15 +344,15 @@ VerticalSegRecovery(const std::vector<std::pair<Pt2i, Pt2i> >& segV,
 bool
 isHoziontalSegTab(const Mat& grayImg,
                   Pt2i p1, Pt2i p2,
-                  int w = 3,
+                  int w = 7,
                   double ratio = 0.75,
                   int threshPic = 200,
                   int threshVal = 100) {
   int countProfil=0;
   int x = p1.x();
-  int y = p1.y() - w;
+  int y = p1.y() - w/2;
   int width = abs(p2.x() - p1.x());
-  int height = 2*w;
+  int height = w;
   //Create the rectangle
   cv::Rect roi(x, y, width, height);
   //Create the cv::Mat with the ROI you need, where "image" is the cv::Mat you want to extract the ROI from
@@ -393,14 +393,14 @@ isHoziontalSegTab(const Mat& grayImg,
 bool
 isVerticalSegTab(const Mat& grayImg,
                  Pt2i p1, Pt2i p2,
-                 int w = 3,
+                 int w = 7,
                  double ratio = 0.75,
                  int threshPic = 200,
                  int threshVal = 100) {
   int countProfil=0;
-  int x = p1.x() - w;
+  int x = p1.x() - w/2;
   int y = p1.y();
-  int width = 2*w;
+  int width = w;
   int height = abs(p2.y() - p1.y());
   //Create the rectangle
   cv::Rect roi(x, y, width, height);
@@ -477,7 +477,7 @@ getTableCells(const std::vector<std::pair<Pt2i, Pt2i> >& segH,
     //create the table cell
     if(idFirst!=-1 && idLast!=-1) {
       std::pair<Pt2i, Pt2i> seg2 = segH.at(idLast);
-      Pt2i c1 (seg1.first.x(), seg1.first.y()); //lp1
+      Pt2i c1 (seg1.first.x(), seg1.first.y()-ext/2); //lp1
       Pt2i c21 (seg2.second.x(), seg2.second.y()); //rp2
         boxes.push_back(make_pair(c1, c21)); //left cell
       Pt2i c22 (seg2.first.x(), seg2.first.y()); //lp2
@@ -504,6 +504,7 @@ getTables(Size imgSize,
     Pt2i p2 = cells.at(it).second;
     rectangle(cellImage, Point(p1.x(), p1.y()), Point(p2.x(), p2.y()), Scalar(255),-1);
   }
+  
   //Compute connected components
   Mat labelImage;
   Mat stats;
@@ -535,8 +536,8 @@ int main(int argc, char *argv[]) {
   int scale = 1;
   int win = 7;
   double tolAlign = 5;
-  int tolDistGr = 30;
-  int tolLen = 20;
+  int tolDistGr = 20;
+  int tolLen = 30;
   double ratio = 0.75;
   
   app.add_option("--input,-i,1", imgFileName, "Input filename.");
@@ -544,8 +545,8 @@ int main(int argc, char *argv[]) {
   app.add_option("--scale,-s", scale, "Scale factor (default = 1)", true);
   app.add_option("--window,-w", win, "Window size of intensity analysis (default = 7) ", true);
   app.add_option("--angle,-a", tolAlign, "Angle tolerance for horizontal and vertical segments (default = 5 degree)", true);
-  app.add_option("--distance,-d", tolDistGr, "Max distance to regroupe the segments (default = 30)", true);
-  app.add_option("--len,-l", tolLen, "Min length of segments (default = 20)", true);
+  app.add_option("--distance,-d", tolDistGr, "Max distance to regroupe the segments (default = 20)", true);
+  app.add_option("--len,-l", tolLen, "Min length of segments (default = 30)", true);
   app.add_option("--ratio,-r", ratio, "Ratio for eliminating text segments (default = 0.75)", true);
   
   app.get_formatter()->column_width(40);
@@ -599,14 +600,14 @@ int main(int argc, char *argv[]) {
   for(int it=0; it<segHsEg.size(); it++) {
     Pt2i lp = segHsEg.at(it).first;
     Pt2i rp = segHsEg.at(it).second;
-    if(isHoziontalSegTab(grayImg, lp, rp, win/2, ratio))
+    if(isHoziontalSegTab(grayImg, lp, rp, win, ratio))
       segHsEgT.push_back(make_pair(lp, rp));
   }
   //Vertical segments
   for(int it=0; it<segVsEg.size(); it++) {
     Pt2i lp = segVsEg.at(it).first;
     Pt2i rp = segVsEg.at(it).second;
-    if(isVerticalSegTab(grayImg, lp, rp, win/2, ratio))
+    if(isVerticalSegTab(grayImg, lp, rp, win, ratio))
       segVsEgT.push_back(make_pair(lp, rp));
   }
   
