@@ -32,19 +32,12 @@ To install the program see <a href="https://github.com/ngophuc/TableExtraction/b
     FBSD detector
     </td>  
     <td align="center" valign="center">
-      <a href="https://github.com/ngophuc/TableExtraction/blob/main/Results/res_HV.png">
-        <img width="150" src="https://github.com/ngophuc/TableExtraction/blob/main/Results/res_HV.png" alt="Filtering horizontal and vertical segments" />
-      </a>
-    <br />
-    Filtering horizontal and vertical segments
-    </td>
-    <td align="center" valign="center">
       <a href="https://github.com/ngophuc/TableExtraction/blob/main/Results/res_HVEg.png">
-        <img width="150" src="https://github.com/ngophuc/TableExtraction/blob/main/Results/res_HVEg.png" alt="Recovering segments"/>
+        <img width="150" src="https://github.com/ngophuc/TableExtraction/blob/main/Results/res_HVEg.png" alt="Filtering horizontal and vertical segments" />
       </a>
     <br />
-    Recovering segments
-    </td>    
+    Filtering horizontal and vertical segments and recovering segments
+    </td>
     </tr>
     <tr>
     <td align="center" valign="center">
@@ -53,14 +46,7 @@ To install the program see <a href="https://github.com/ngophuc/TableExtraction/b
       </a>  
     <br />
     Removing text segments
-    </td>
-    <td align="center" valign="center">
-      <a href="https://github.com/ngophuc/TableExtraction/blob/main/Results/res_HVCell.png">
-        <img width="150" src="https://github.com/ngophuc/TableExtraction/blob/main/Results/res_HVCell.png" alt="Retrieving table cells" />
-      </a>
-    <br />
-    Retrieving table cells
-    </td>  
+    </td> 
     <td align="center" valign="center">
       <a href="https://github.com/ngophuc/TableExtraction/blob/main/Results/res_HVTable.png">
         <img width="150" src="https://github.com/ngophuc/TableExtraction/blob/main/Results/res_HVTable.png" alt="Table extraction" />
