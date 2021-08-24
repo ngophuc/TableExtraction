@@ -40,10 +40,40 @@ To install the program see <a href="https://github.com/ngophuc/TableExtraction/b
     </td>
     <td align="center" valign="center">
       <a href="https://github.com/ngophuc/TableExtraction/blob/main/Results/res_HVEg.png">
-        <img width="150" src="https://github.com/ngophuc/TableExtraction/blob/main/Results/res_HVEg.png" />
+        <img width="150" src="https://github.com/ngophuc/TableExtraction/blob/main/Results/res_HVEg.png" alt="Recovering segments"/>
       </a>
     <br />
     Recovering segments
+    </td>    
+    </tr>
+    <tr>
+    <td align="center" valign="center">
+      <a href="https://github.com/ngophuc/TableExtraction/blob/main/Results/res_HVT.png">
+        <img width="150" src="https://github.com/ngophuc/TableExtraction/blob/main/Results/res_HVT.png" alt="Removing text segments" />
+      </a>  
+    <br />
+    Removing text segments
+    </td>
+    <td align="center" valign="center">
+      <a href="https://github.com/ngophuc/TableExtraction/blob/main/Results/res_HVCell.png">
+        <img width="150" src="https://github.com/ngophuc/TableExtraction/blob/main/Results/res_HVCell.png" alt="Retrieving table cells" />
+      </a>
+    <br />
+    Retrieving table cells
+    </td>  
+    <td align="center" valign="center">
+      <a href="https://github.com/ngophuc/TableExtraction/blob/main/Results/res_HVTable.png">
+        <img width="150" src="https://github.com/ngophuc/TableExtraction/blob/main/Results/res_HVTable.png" alt="Table extraction" />
+      </a>
+    <br />
+    Table extraction
+    </td>
+    <td align="center" valign="center">
+      <a href="https://github.com/ngophuc/TableExtraction/blob/main/Results/eu-002_page0_res.png">
+        <img width="150" src="https://github.com/ngophuc/TableExtraction/blob/main/Results/eu-002_page0_res.png" alt="Output image" />
+      </a>
+    <br />
+    Output image
     </td>    
     </tr>
   </table>
