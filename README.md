@@ -36,7 +36,7 @@ To install the program see <a href="https://github.com/ngophuc/TableExtraction/b
         <img width="150" src="https://github.com/ngophuc/TableExtraction/blob/main/Results/res_HVEg.png" alt="Filtering horizontal and vertical segments" />
       </a>
     <br />
-    Filtering horizontal and vertical segments and recovering segments
+    Filtering and recovering segments
     </td>
     </tr>
     <tr>
