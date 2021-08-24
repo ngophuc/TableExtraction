@@ -32,13 +32,6 @@ To install the program see <a href="https://github.com/ngophuc/TableExtraction/b
     FBSD detector
     </td>  
     <td align="center" valign="center">
-      <a href="https://github.com/ngophuc/ModifiedAdaptiveTagentialCover/blob/master/Results/bird5_DPnew_ATC.pdf">
-        <img width="150" src="https://github.com/ngophuc/ModifiedAdaptiveTagentialCover/blob/master/Results/bird5_DPnew_ATC.png" alt="Polygonal approximation with ATC" />
-      </a>
-    <br />
-    Polygonalization with ATC
-    </td>    
-    <td align="center" valign="center">
       <a href="https://github.com/ngophuc/TableExtraction/blob/main/Results/res_HV.png">
         <img width="150" src="https://github.com/ngophuc/TableExtraction/blob/main/Results/res_HV.png" alt="Filtering horizontal and vertical segments" />
       </a>
