@@ -1,0 +1,33 @@
+Dependancies:
+-------------
+This program uses OpenCV Library. You need to install the last version available here:
+https://opencv.org/
+
+Main installation:
+-------------------
+
+To complie the tools you run the following commands:
+  mkdir build 
+  cd build
+  cmake .. 
+  make -j 5
+
+To run the tools you have the following parameters 
+  (run TableExtraction -h)
+  
+  Usage: ./TableExtraction [OPTIONS] [1] [2]
+
+Positionals:
+  1 TEXT                                Input filename.
+  2 TEXT=result.png                     Output filename (default = result.png)
+
+Options:
+  -h,--help                             Print this help message and exit
+  -i,--input TEXT                       Input filename.
+  -o,--output TEXT=result.png           Output filename (default = result.png)
+  -s,--scale INT=1                      Scale factor (default = 1)
+  -w,--window INT=7                     Window size of intensity analysis (default = 7) 
+  -a,--angle FLOAT=5                    Angle tolerance for horizontal and vertical segments (default = 5 degree)
+  -d,--distance INT=20                  Max distance to regroupe the segments (default = 20)
+  -l,--len INT=30                       Min length of segments (default = 30)
+  -r,--ratio FLOAT=0.75                 Ratio for eliminating text segments (default = 0.75)
