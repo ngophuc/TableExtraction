@@ -156,7 +156,7 @@ To install the program see <a href="https://github.com/ngophuc/TableExtraction/b
       <img width="250" src="https://github.com/ngophuc/TableExtraction/blob/main/Results/10.1.1.1.2111_7_res.png" alt="Output image" />
     </a>
   <br />
-  Output image (graphic is detected as table)
+  Output image (graphics are  mistakenly recognized as tables)
   </td>    
   </tr>
 </table>
