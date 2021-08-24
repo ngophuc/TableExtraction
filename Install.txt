@@ -13,8 +13,6 @@ To complie the tools you run the following commands:
   make -j 5
 
 To run the tools you have the following parameters 
-  (run TableExtraction -h)
-  
   Usage: ./TableExtraction [OPTIONS] [1] [2]
 
 Positionals:
