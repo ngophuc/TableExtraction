@@ -136,3 +136,27 @@ To install the program see <a href="https://github.com/ngophuc/TableExtraction/b
   </td>    
   </tr>
 </table>
+
+<p>Result for <a href="https://github.com/ngophuc/TableExtraction/blob/main/Samples/10.1.1.1.2111_7.jpg">10.1.1.1.2111_7.jpg</a>: </p>&#x000A;&#x000A;
+<pre class="code highlight js-syntax-highlight plaintext">
+<code>./TableExtraction -i ../Samples/10.1.1.1.2111_7.jpg -o 10.1.1.1.2111_7_res.png</code>
+</pre>&#x000A;&#x000A;
+<p>
+<table cellpadding="5">
+  <tr>
+  <td align="center" valign="center">
+    <a href="https://github.com/ngophuc/TableExtraction/blob/main/Samples/10.1.1.1.2111_7.jpg">
+      <img width="250" src="https://github.com/ngophuc/TableExtraction/blob/main/Samples/10.1.1.1.2111_7.jpg" alt="Input image" />
+    </a>  
+  <br />
+  Input image
+  </td>
+  <td align="center" valign="center">
+    <a href="https://github.com/ngophuc/TableExtraction/blob/main/Results/10.1.1.1.2111_7_res.png">
+      <img width="250" src="https://github.com/ngophuc/TableExtraction/blob/main/Results/10.1.1.1.2111_7_res.png" alt="Output image" />
+    </a>
+  <br />
+  Output image (graphic is detected as table)
+  </td>    
+  </tr>
+</table>
