@@ -143,6 +143,8 @@ To install the program see <a href="https://github.com/ngophuc/TableExtraction/b
   </tr>
 </table>
 
+# Limit cases
+
 <p>Result for <a href="https://github.com/ngophuc/TableExtraction/blob/main/Samples/10.1.1.1.2111_7.jpg">10.1.1.1.2111_7.jpg</a>: </p>&#x000A;&#x000A;
 <pre class="code highlight js-syntax-highlight plaintext">
 <code>./TableExtraction -i ../Samples/10.1.1.1.2111_7.jpg -o 10.1.1.1.2111_7_res.png</code>
@@ -163,6 +165,30 @@ To install the program see <a href="https://github.com/ngophuc/TableExtraction/b
     </a>
   <br />
   Output image (graphics are  mistakenly recognized as tables)
+  </td>    
+  </tr>
+</table>
+
+<p>Result for <a href="https://github.com/ngophuc/TableExtraction/blob/main/Samples/1078_082.png">1078_082.png</a>: </p>&#x000A;&#x000A;
+<pre class="code highlight js-syntax-highlight plaintext">
+<code>./TableExtraction -i ../Samples/1078_082.png -o 1078_082_res.png</code>
+</pre>&#x000A;&#x000A;
+<p>
+<table cellpadding="5">
+  <tr>
+  <td align="center" valign="center">
+    <a href="https://github.com/ngophuc/TableExtraction/blob/main/Samples/1078_082.png">
+      <img width="250" src="https://github.com/ngophuc/TableExtraction/blob/main/Samples/1078_082.png" alt="Input image" />
+    </a>  
+  <br />
+  Input image
+  </td>
+  <td align="center" valign="center">
+    <a href="https://github.com/ngophuc/TableExtraction/blob/main/Results/1078_082_res.png">
+      <img width="250" src="https://github.com/ngophuc/TableExtraction/blob/main/Results/1078_082_res.png" alt="Output image" />
+    </a>
+  <br />
+  Output image (Boundless table non detected)
   </td>    
   </tr>
 </table>
