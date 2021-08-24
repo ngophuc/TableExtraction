@@ -19,21 +19,21 @@ To install the program see <a href="https://github.com/ngophuc/TableExtraction/b
     <tr>
     <td align="center" valign="center">
       <a href="https://github.com/ngophuc/TableExtraction/blob/main/Samples/eu-002_page0.png">
-        <img width="150" src="https://github.com/ngophuc/TableExtraction/blob/main/Samples/eu-002_page0.png" alt="Input image" />
+        <img width="250" src="https://github.com/ngophuc/TableExtraction/blob/main/Samples/eu-002_page0.png" alt="Input image" />
       </a>  
     <br />
     Input image
     </td>
     <td align="center" valign="center">
       <a href="https://github.com/ngophuc/TableExtraction/blob/main/Results/res_Seg.png">
-        <img width="150" src="https://github.com/ngophuc/TableExtraction/blob/main/Results/res_Seg.png" alt="FBSD detector" />
+        <img width="250" src="https://github.com/ngophuc/TableExtraction/blob/main/Results/res_Seg.png" alt="FBSD detector" />
       </a>
     <br />
     FBSD detector
     </td>  
     <td align="center" valign="center">
       <a href="https://github.com/ngophuc/TableExtraction/blob/main/Results/res_HVEg.png">
-        <img width="150" src="https://github.com/ngophuc/TableExtraction/blob/main/Results/res_HVEg.png" alt="Filtering horizontal and vertical segments" />
+        <img width="250" src="https://github.com/ngophuc/TableExtraction/blob/main/Results/res_HVEg.png" alt="Filtering horizontal and vertical segments" />
       </a>
     <br />
     Filtering and recovering segments
@@ -42,21 +42,21 @@ To install the program see <a href="https://github.com/ngophuc/TableExtraction/b
     <tr>
     <td align="center" valign="center">
       <a href="https://github.com/ngophuc/TableExtraction/blob/main/Results/res_HVT.png">
-        <img width="150" src="https://github.com/ngophuc/TableExtraction/blob/main/Results/res_HVT.png" alt="Removing text segments" />
+        <img width="250" src="https://github.com/ngophuc/TableExtraction/blob/main/Results/res_HVT.png" alt="Removing text segments" />
       </a>  
     <br />
     Removing text segments
     </td> 
     <td align="center" valign="center">
       <a href="https://github.com/ngophuc/TableExtraction/blob/main/Results/res_HVTable.png">
-        <img width="150" src="https://github.com/ngophuc/TableExtraction/blob/main/Results/res_HVTable.png" alt="Table extraction" />
+        <img width="250" src="https://github.com/ngophuc/TableExtraction/blob/main/Results/res_HVTable.png" alt="Table extraction" />
       </a>
     <br />
     Table extraction
     </td>
     <td align="center" valign="center">
       <a href="https://github.com/ngophuc/TableExtraction/blob/main/Results/eu-002_page0_res.png">
-        <img width="150" src="https://github.com/ngophuc/TableExtraction/blob/main/Results/eu-002_page0_res.png" alt="Output image" />
+        <img width="250" src="https://github.com/ngophuc/TableExtraction/blob/main/Results/eu-002_page0_res.png" alt="Output image" />
       </a>
     <br />
     Output image
