@@ -67,7 +67,7 @@ To install the program see <a href="https://github.com/ngophuc/TableExtraction/b
 
 <p>Result for <a href="https://github.com/ngophuc/TableExtraction/blob/main/Samples/eu-001_page0.png">eu-001_page0.png</a>: </p>&#x000A;&#x000A;
 <pre class="code highlight js-syntax-highlight plaintext">
-<code>./TableExtraction -i ../Samples/eu-001_page0.png.png -o eu-001_page0.png_res.png -s 2</code>
+<code>./TableExtraction -i ../Samples/eu-001_page0.png -o eu-001_page0_res.png -s 2</code>
 </pre>&#x000A;&#x000A;
 <p>
 <table cellpadding="5">
@@ -82,6 +82,30 @@ To install the program see <a href="https://github.com/ngophuc/TableExtraction/b
   <td align="center" valign="center">
     <a href="https://github.com/ngophuc/TableExtraction/blob/main/Results/eu-001_page0_res.png">
       <img width="250" src="https://github.com/ngophuc/TableExtraction/blob/main/Results/eu-001_page0_res.png" alt="Output image" />
+    </a>
+  <br />
+  Output image
+  </td>    
+  </tr>
+</table>
+
+<p>Result for <a href="https://github.com/ngophuc/TableExtraction/blob/main/Samples/us-001_page0.png">us-001_page0.png</a>: </p>&#x000A;&#x000A;
+<pre class="code highlight js-syntax-highlight plaintext">
+<code>./TableExtraction -i ../Samplesus-001_page0.png -o us-001_page0_res.png -s 2</code>
+</pre>&#x000A;&#x000A;
+<p>
+<table cellpadding="5">
+  <tr>
+  <td align="center" valign="center">
+    <a href="https://github.com/ngophuc/TableExtraction/blob/main/Samples/us-001_page0.png">
+      <img width="250" src="https://github.com/ngophuc/TableExtraction/blob/main/Samples/us-001_page0.png" alt="Input image" />
+    </a>  
+  <br />
+  Input image
+  </td>
+  <td align="center" valign="center">
+    <a href="https://github.com/ngophuc/TableExtraction/blob/main/Results/us-001_page0.png">
+      <img width="250" src="https://github.com/ngophuc/TableExtraction/blob/main/Results/us-001_page0.png" alt="Output image" />
     </a>
   <br />
   Output image
