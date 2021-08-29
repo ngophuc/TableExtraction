@@ -16,7 +16,7 @@ This is a tool to extract tables in document images. The method is composed of 6
 To install the program see <a href="https://github.com/ngophuc/TableExtraction/blob/main/Install.txt">Install.txt</a> file
 
 # Examples
-<p>Result for <a href="https://github.com/ngophuc/TableExtraction/blob/main/Samples/eu-002_page0.png">eu-002_page0.png</a>: </p>&#x000A;&#x000A;
+<p>Result (with intermediate steps) for <a href="https://github.com/ngophuc/TableExtraction/blob/main/Samples/eu-002_page0.png">eu-002_page0.png</a>: </p>&#x000A;&#x000A;
 <pre class="code highlight js-syntax-highlight plaintext">
 <code>./TableExtraction -i ../Samples/eu-002_page0.png -o eu-002_page0_res.png -s 2</code>
 </pre>&#x000A;&#x000A;
