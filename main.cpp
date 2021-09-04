@@ -533,7 +533,6 @@ int main(int argc, char *argv[]) {
   // parse command line using CLI ----------------------------------------------
   CLI::App app;
   string imgFileName, resFilename{"result.png"};
-  int scale = 1;
   int win = 7;
   double tolAlign = 5;
   int tolDistGr = 20;
@@ -542,7 +541,6 @@ int main(int argc, char *argv[]) {
   
   app.add_option("--input,-i,1", imgFileName, "Input filename.");
   app.add_option("--output,-o,2", resFilename, "Output filename (default = result.png)", true);
-  app.add_option("--scale,-s", scale, "Scale factor (default = 1)", true);
   app.add_option("--window,-w", win, "Window size of intensity analysis (default = 7) ", true);
   app.add_option("--angle,-a", tolAlign, "Angle tolerance for horizontal and vertical segments (default = 5 degree)", true);
   app.add_option("--distance,-d", tolDistGr, "Max distance to regroupe the segments (default = 20)", true);
@@ -561,7 +559,7 @@ int main(int argc, char *argv[]) {
     cerr << "Couldn't open the " << imgFileName << " image file." << endl;
     exit (EXIT_FAILURE);
   }
-  
+  int scale = std::max(width,height) > 800 ? 1 : 2;
   resize(img, img, Size(scale*width,scale*height),INTER_LINEAR);
   width = scale*width;
   height = scale*height;

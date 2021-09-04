@@ -23,7 +23,6 @@ Options:
   -h,--help                             Print this help message and exit
   -i,--input TEXT                       Input filename.
   -o,--output TEXT=result.png           Output filename (default = result.png)
-  -s,--scale INT=1                      Scale factor (default = 1)
   -w,--window INT=7                     Window size of intensity analysis (default = 7) 
   -a,--angle FLOAT=5                    Angle tolerance for horizontal and vertical segments (default = 5 degree)
   -d,--distance INT=20                  Max distance to regroupe the segments (default = 20)
